@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Spring Boot Thymeleaf + Spring Security</title>
+
+    <div th:replace="fragments/header :: header-css"></div>
+
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container">
+    <h2>List of users</h2>
+    <ol th:each="user : ${users}">
+        <li>
+            <b th:text="${user.username}"></b>
+            <b th:text="${#strings.setJoin(user.roles, ',')}"></b>
+            <a th:href="@{'/user/' + ${user.id}}">Edit</a>
+        </li>
+    </ol>
+
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

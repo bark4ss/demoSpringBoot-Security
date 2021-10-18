@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Spring Boot Thymeleaf + Spring Security</title>
+
+    <div th:replace="fragments/header :: header-css"></div>
+
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container">
+    <form th:action="@{/user}" method="post" th:object="${user}">
+        <input type="hidden" th:field="*{id}" th:value="${user.id}">
+        <input type="hidden" th:field="*{password}" th:value="${user.password}">
+        <div>
+            <label>
+                UserName:
+                <input type="text" th:field="*{username}" th:value="${user.username}">
+            </label>
+        </div>
+        <div>
+            <label>Roles:
+                <input type="checkbox" name="roles" th:checked="${user.roles.contains(role)}"
+                       th:each="role : ${roles}"
+                       th:text="${role}"
+                       th:value="${role.name}"
+                       th:field="*{roles}"
+                />
+            </label>
+        </div>
+        <div>
+            <label>isActive:
+                <input type="checkbox" th:field="*{active}" th:checked="${user.active}"/>
+            </label>
+        </div>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <button type="submit">Edit</button>
+    </form>
+</div>
+</body>
+</html>
