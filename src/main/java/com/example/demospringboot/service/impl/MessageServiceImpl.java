@@ -22,6 +22,11 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    public Message getById(int id) {
+        return messageRepo.findById(id).get();
+    }
+
+    @Override
     public List<Message> findByCriteria(String tag, String text) {
 
         return messageRepo.findByTagContainingOrTextContaining(tag,text);
