@@ -16,12 +16,13 @@ public class UserServiceImpl implements UserService {
 
     private UserRepo userRepo;
 
-    @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepo userRepo){
+    public UserServiceImpl(PasswordEncoder passwordEncoder, UserRepo userRepo) {
         this.userRepo = userRepo;
+        this.passwordEncoder = passwordEncoder;
     }
+
     @Override
     public List<User> findAll() {
         return userRepo.findAll();

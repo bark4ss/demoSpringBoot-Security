@@ -5,6 +5,7 @@ import com.example.demospringboot.model.User;
 import com.example.demospringboot.repository.UserRepo;
 import com.example.demospringboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class RegistrationController {
@@ -23,7 +21,10 @@ public class RegistrationController {
     private UserService userService;
 
     @Autowired
-    public RegistrationController(UserService userService){
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public RegistrationController(UserService userService) {
         this.userService = userService;
     }
 
@@ -34,6 +35,7 @@ public class RegistrationController {
         //modelAndView.addObject("user", new User());
         return modelAndView;
     }
+
     @PostMapping("/registration")
     public ModelAndView addUser(@ModelAttribute User user, ModelAndView modelAndView) {
         User userFromDb = userService.findByName(user.getUsername());
